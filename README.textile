@@ -1,0 +1,3 @@
+h1. hxCLEye
+
+*hxCLEye* is binding of "Code Laboratories":http://codelaboratories.com 's CLEye SDK. For usage of multiple PS3Eye cameras on Windows with haXe/C++.

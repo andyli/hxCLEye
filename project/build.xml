@@ -1,0 +1,24 @@
+<xml>
+	<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
+	
+	<set name="LIB_DIR" value="-libpath:lib" if="windows"/>
+	
+	<files id="CLEyeFiles">
+		<compilerflag value = "-Iinclude"/>
+		<file name="CLEye.cpp"/>
+	</files>
+	
+	<target id="CLEye.ndll" tool="linker" toolid="dll" output="CLEye">
+		<files id="CLEyeFiles"/>
+		<ext value=".ndll"/>
+		<outdir name="../ndll/${BINDIR}"/>
+		<flag value="${LIB_DIR}"/>
+		<lib name="${LIB_LINK}"/>
+		<lib name="CLEyeMulticam.lib"/>
+		<lib name="Rpcrt4.lib"/>
+	</target>
+
+	<target id="default">
+		<target id="CLEye.ndll"/>
+	</target>
+</xml>

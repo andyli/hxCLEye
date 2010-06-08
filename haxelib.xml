@@ -1,0 +1,7 @@
+<project name="hxCLEye" url="http://github.com/andyli/hxCLEye" license="BSD">
+    <user name="andyli"/>
+    <tag v="hardware"/>
+    <tag v="c++"/>
+    <description>Binding of Code Laboratories's CLEye SDK. For usage of multiple PS3Eye cameras on Windows with haXe/C++.</description>
+    <version name="0.1.0">First release.</version>
+</project>
