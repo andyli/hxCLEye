@@ -1,11 +1,6 @@
 ﻿package ;
 
-#if cpp 
-import cpp.Lib;
-#elseif neko
-import neko.Lib;
-#end
-
+import haxe.io.Bytes;
 import hxCLEye.CLEye;
 import nme.display.Bitmap;
 import nme.display.BitmapData;
@@ -14,6 +9,12 @@ import nme.display.StageAlign;
 import nme.display.StageScaleMode;
 import nme.events.Event;
 import org.casalib.util.ColorUtil;
+
+#if cpp 
+import cpp.Lib;
+#elseif neko
+import neko.Lib;
+#end
 
 class Main extends Sprite {
 	public var cameras:Array<CLEye>;
@@ -55,17 +56,18 @@ class Main extends Sprite {
 		for (i in 0...cameras.length) {
 			var cam = cameras[i];
 			var bd = cameraDisplays[i].bitmapData;
+			var channelNum = cam.getNumOfChannel();
+			var b = Bytes.ofData(cam.getFrame());
 			bd.lock();
-			var b = cam.getFrame();
+			var pos = 0;
 			for (y in 0...camHeight) {
 				for (x in 0...camWidth) {
-					var channelNum = cam.getNumOfChannel();
 					if (channelNum == 1) {
-						var val = b.get(x + y * camWidth);
+						var val = b.get(pos++);
 						bd.setPixel(x, y, ColorUtil.getColor(val, val, val));
 					} else if (channelNum == 4) {
-						var pos = (x + y * camWidth) * 4;
 						bd.setPixel(x, y, ColorUtil.getColor(b.get(pos + 2), b.get(pos + 1), b.get(pos)));
+						pos += 4;
 					}
 				}
 			}

@@ -7,6 +7,7 @@ import neko.Lib;
 #end
 
 import haxe.io.Bytes;
+import haxe.io.BytesData;
 
 enum CLEyeCameraColorMode {
 	CLEYE_MONO_PROCESSED;
@@ -56,7 +57,7 @@ class CLEye
 		handle = _CLEyeCreateCamera(uuid, CLEyeCameraColorModeToInt(colorMode), CLEyeCameraResolutionToInt(res == null? CLEYE_QVGA : res), frameRate);
 		
 		var area = getFrameDimensions();
-		buffer = Bytes.alloc(area.width * area.height * getNumOfChannel());
+		buffer = Bytes.alloc(area.width * area.height * getNumOfChannel()).getData();
 	}
 	
 	public function destroy():Bool {
@@ -89,8 +90,8 @@ class CLEye
 		return ret;
 	}
 	
-	public function getFrame(waitTimeout:Int = 2000):Bytes {
-		_CLEyeCameraGetFrame(handle, buffer.getData(), waitTimeout);
+	public function getFrame(waitTimeout:Int = 2000):BytesData {
+		_CLEyeCameraGetFrame(handle, buffer, waitTimeout);
 		return buffer;
 	}
 	
@@ -108,7 +109,7 @@ class CLEye
 	
 	
 	public var handle(default, null):Dynamic;
-	public var buffer:Bytes;
+	public var buffer:BytesData;
 	public var uuid(default, null):String;
 	public var colorMode(default, null):CLEyeCameraColorMode;
 	
