@@ -1,11 +1,11 @@
--cmd cd project
--cmd haxelib run hxcpp build.xml
--cmd cd ..
--cmd copy ndll\Windows\*.* bin
+#-cmd cd project
+#-cmd haxelib run hxcpp build.xml
+#-cmd cd ..
+#-cmd copy ndll\Windows\*.* bin
 
 -cpp bin
 -main Main
--D HXCPP_MULTI_THREADED
+#-D HXCPP_MULTI_THREADED
 -lib nme
 -lib casalib
 --remap flash:nme
